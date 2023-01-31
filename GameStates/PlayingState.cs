@@ -9,17 +9,17 @@ namespace BaseProject.GameStates
 {
     class PlayingState : GameObjectList
     {
-        private PlayerCircle player;
+        private Pusher playerPusher;
         Wall leftWall, rightWall, upperWall, bottomWall;
         Puck puck;
 
         /// <summary>
-        /// PlayState constructor which adds the different gameobjects and lists in the correct order of drawing.
+        /// PlayState constructor which adds the different gamdddeobjects and lists in the correct order of drawing.
         /// </summary>
         public PlayingState()
         {
-            player = new PlayerCircle(new Vector2(400, 300), "circle");
-            Add(player);
+            playerPusher = new Pusher(new Vector2(400, 300), "circle");
+            Add(playerPusher);
 
             leftWall = new Wall(Vector2.Zero, "spr_goal_wall");
             Add(leftWall);

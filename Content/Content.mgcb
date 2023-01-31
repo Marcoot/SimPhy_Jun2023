@@ -49,6 +49,18 @@
 /processorParam:TextureFormat=Color
 /build:spr_horizontal_wall.png
 
+#begin spr_obstacle.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:spr_obstacle.png
+
 #begin spr_puck.png
 /importer:TextureImporter
 /processor:TextureProcessor
