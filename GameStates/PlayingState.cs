@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using SimPhy_Jun2021.GameObjects;
+using SimPhy_Jun2022.GameObjects;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,6 +10,8 @@ namespace BaseProject.GameStates
     class PlayingState : GameObjectList
     {
         private PlayerCircle player;
+        Wall leftWall, rightWall, upperWall, bottomWall;
+        Puck puck;
 
         /// <summary>
         /// PlayState constructor which adds the different gameobjects and lists in the correct order of drawing.
@@ -17,6 +20,24 @@ namespace BaseProject.GameStates
         {
             player = new PlayerCircle(new Vector2(400, 300), "circle");
             Add(player);
+
+            leftWall = new Wall(Vector2.Zero, "spr_goal_wall");
+            Add(leftWall);
+
+            rightWall = new Wall(new Vector2(GameEnvironment.Screen.X - 50, 0), "spr_goal_wall");
+            Add(rightWall);
+
+            upperWall = new Wall(Vector2.Zero, "spr_horizontal_wall");
+            Add(upperWall);
+
+            bottomWall = new Wall(new Vector2(0, GameEnvironment.Screen.Y - 50), "spr_horizontal_wall");
+            Add(bottomWall);
+
+            puck = new Puck(new Vector2(GameEnvironment.Screen.X / 2, GameEnvironment.Screen.Y / 2));
+            Add(puck);
+
+
+
 
             // Add initialization logic here
         }
