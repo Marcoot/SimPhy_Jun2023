@@ -9,6 +9,7 @@ namespace SimPhy_Jun2022.GameObjects
     internal class Puck : SpriteGameObject
     {
         public  float frictionPuck = 0.99f;
+        public int MaxVelocity = 250;
         public Puck(Vector2 startpositionPuck) : base("spr_puck")
         {
             this.position = startpositionPuck;
@@ -19,7 +20,6 @@ namespace SimPhy_Jun2022.GameObjects
         {
             base.Update(gameTime);
             velocity *= frictionPuck;
-
         }
 
         public override void HandleInput(InputHelper inputHelper)
@@ -37,6 +37,25 @@ namespace SimPhy_Jun2022.GameObjects
 
             /*if(!inputHelper.IsKeyDown(Keys.A) && !inputHelper.IsKeyDown(Keys.D) && !inputHelper.IsKeyDown(Keys.W) && !inputHelper.IsKeyDown(Keys.S))
                 velocity = Vector2.Zero;*/
+        }
+
+        public void BounceX()
+        {
+            velocity *= 0.9f;
+            velocity.X = -velocity.X;
+        }
+
+        public void BounceY()
+        {
+            velocity *= 0.9f;
+            velocity.Y = -velocity.Y;
+        }
+
+        public void respawnPuck()
+        {
+            position = new Vector2(GameEnvironment.Screen.X / 2, GameEnvironment.Screen.Y / 2);
+
+            velocity = new Vector2(GameEnvironment.Random.Next(-MaxVelocity, MaxVelocity), GameEnvironment.Random.Next(-MaxVelocity, MaxVelocity));  
         }
     }
 }

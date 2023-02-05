@@ -18,7 +18,7 @@ namespace BaseProject.GameStates
         /// </summary>
         public PlayingState()
         {
-            playerPusher = new Pusher(new Vector2(400, 300), "circle");
+            playerPusher = new Pusher(new Vector2(400, 300), "spr_pusher");
             Add(playerPusher);
 
             leftWall = new Wall(Vector2.Zero, "spr_goal_wall");
@@ -51,6 +51,14 @@ namespace BaseProject.GameStates
             base.Update(gameTime);
 
             // Add update logic here
+            if (puck.Position.X <= 0 - puck.Width/2 || puck.Position.X >= GameEnvironment.Screen.X + puck.Width/2)
+                puck.respawnPuck();
+
+            if (puck.CollidesWith(leftWall) || puck.CollidesWith(rightWall))
+                puck.BounceX();
+            if (puck.CollidesWith(upperWall) || puck.CollidesWith(bottomWall))
+                puck.BounceY();
+
         }
     }
 
