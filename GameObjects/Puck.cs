@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using SimPhy_Jun2021.GameObjects;
+using SimPhy_Jun2022.GameObjects;
 
 namespace SimPhy_Jun2022.GameObjects
 {
@@ -14,6 +16,14 @@ namespace SimPhy_Jun2022.GameObjects
         {
             this.position = startpositionPuck;
             origin = Center;
+        }
+
+        public float Radius
+        {
+            get
+            {
+                return Width / 2;
+            }
         }
 
         public override void Update(GameTime gameTime)
@@ -51,11 +61,21 @@ namespace SimPhy_Jun2022.GameObjects
             velocity.Y = -velocity.Y;
         }
 
+        public void bouncePusher()
+        {
+            velocity *= 0.85f;
+        }
+
         public void respawnPuck()
         {
             position = new Vector2(GameEnvironment.Screen.X / 2, GameEnvironment.Screen.Y / 2);
 
             velocity = new Vector2(GameEnvironment.Random.Next(-MaxVelocity, MaxVelocity), GameEnvironment.Random.Next(-MaxVelocity, MaxVelocity));  
+        }
+
+        public bool CircleCircleCollidesWith(Puck otherCircle)
+        {
+            return Vector2.Distance(this.position, otherCircle.position) < (this.Radius + otherCircle.Radius);
         }
     }
 }

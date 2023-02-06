@@ -10,6 +10,7 @@ namespace BaseProject.GameStates
     class PlayingState : GameObjectList
     {
         private Pusher playerPusher;
+        EnemyPusher enemyPusher;
         Wall leftWall, rightWall, upperWall, bottomWall;
         Puck puck;
 
@@ -20,6 +21,9 @@ namespace BaseProject.GameStates
         {
             playerPusher = new Pusher(new Vector2(400, 300), "spr_pusher");
             Add(playerPusher);
+
+            enemyPusher = new EnemyPusher(new Vector2(GameEnvironment.Screen.X - 150, GameEnvironment.Screen.Y / 2), new Vector2(0,-150));
+            Add(enemyPusher);
 
             leftWall = new Wall(Vector2.Zero, "spr_goal_wall");
             Add(leftWall);
@@ -35,8 +39,6 @@ namespace BaseProject.GameStates
 
             puck = new Puck(new Vector2(GameEnvironment.Screen.X / 2, GameEnvironment.Screen.Y / 2));
             Add(puck);
-
-
 
 
             // Add initialization logic here
@@ -58,6 +60,57 @@ namespace BaseProject.GameStates
                 puck.BounceX();
             if (puck.CollidesWith(upperWall) || puck.CollidesWith(bottomWall))
                 puck.BounceY();
+            
+
+            if (puck.CircleCircleCollidesWith(playerPusher))
+            {
+                //kijkt naar positie van pusher en de puck
+                float distancePlayerBall = Vector2.Distance(playerPusher.Position, puck.Position);
+                //kijkt naar de radius van de 2 (ook afstand)
+                float dOverlap = playerPusher.Radius + puck.Radius - distancePlayerBall;
+                //checkt of afstand langer is dan de overlap tussen de pusher en de puck
+                Vector2 collisionNormal = playerPusher.Position - puck.Position;
+
+                collisionNormal.Normalize();
+
+                playerPusher.Position += collisionNormal * dOverlap / 2;
+                puck.Position -= collisionNormal * dOverlap / 2;
+
+                //float totalInverseMass = playerPusher.InverseMass + puck.InverseMass;
+                //Vector2 velocityChange = (1 + bounceFactor) * Vector2.Dot(playerPusher.Velocity, collisionNormal) * collisionNormal;
+                //velocityChange /= totalInverseMass;
+
+                //playerPusher.Velocity -= velocityChange * playerPusher.InverseMass;
+                //puck.Velocity += velocityChange * puck.InverseMass;
+                puck.Velocity = -puck.Velocity;
+                puck.bouncePusher();
+            }
+
+            if (puck.CircleCircleCollidesWith(enemyPusher))
+            {
+                //kijkt naar positie van pusher en de puck
+                float distancePlayerBall = Vector2.Distance(enemyPusher.Position, puck.Position);
+                //kijkt naar de radius van de 2 (ook afstand)
+                float dOverlap = enemyPusher.Radius + puck.Radius - distancePlayerBall;
+                //checkt of afstand langer is dan de overlap tussen de pusher en de puck
+                Vector2 collisionNormal = enemyPusher.Position - puck.Position;
+
+                collisionNormal.Normalize();
+
+                enemyPusher.Position += collisionNormal * dOverlap / 2;
+                puck.Position -= collisionNormal * dOverlap / 2;
+
+                //float totalInverseMass = playerPusher.InverseMass + puck.InverseMass;
+                //Vector2 velocityChange = (1 + bounceFactor) * Vector2.Dot(playerPusher.Velocity, collisionNormal) * collisionNormal;
+                //velocityChange /= totalInverseMass;
+
+                //playerPusher.Velocity -= velocityChange * playerPusher.InverseMass;
+                //puck.Velocity += velocityChange * puck.InverseMass;
+                puck.Velocity = -puck.Velocity;
+                puck.bouncePusher();
+            }
+
+
 
         }
     }

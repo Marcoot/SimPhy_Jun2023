@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using SimPhy_Jun2022.GameObjects;
+using SimPhy_Jun2021.GameObjects;
 
 namespace SimPhy_Jun2021.GameObjects
 {
@@ -11,6 +13,7 @@ namespace SimPhy_Jun2021.GameObjects
         private Vector2 acceleration = Vector2.Zero;
         private float invMass = 1.0f; //set indirectly by setting 'mass'
 
+
         /// <summary>Creates a physics body</summary>
         public Pusher(Vector2 position, string assetName) : base(assetName)
         {
@@ -19,6 +22,14 @@ namespace SimPhy_Jun2021.GameObjects
             Mass = (radius * radius); //mass approx.
             origin = Center;
             this.position = position;
+        }
+
+        public float Radius
+        {
+            get
+            {
+                return Width / 2;
+            }
         }
 
         /// <summary>Updates this Body</summary>        
@@ -92,6 +103,11 @@ namespace SimPhy_Jun2021.GameObjects
             {
                 Angle = (float)Math.Atan2(-value.X, value.Y); //polar to angle
             }
+        }
+
+        public bool CircleCircleCollidesWith(Pusher other)
+        {
+            return Vector2.Distance(this.position, other.position) < (this.Radius + other.Radius);
         }
 
     }
