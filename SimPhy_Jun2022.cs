@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace BaseProject
 {
-    public class SimPhy_Jun2021 : GameEnvironment
+    public class SimPhy_Jun2022 : GameEnvironment
     {      
         protected override void LoadContent()
         {

@@ -7,7 +7,7 @@ namespace BaseProject
         [STAThread]
         static void Main()
         {
-            using (var game = new SimPhy_Jun2021())
+            using (var game = new SimPhy_Jun2022())
                 game.Run();
         }
     }

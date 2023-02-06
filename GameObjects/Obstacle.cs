@@ -11,5 +11,11 @@ namespace SimPhy_Jun2022.GameObjects
         {
             this.position = positionObstacle;
         }
+
+        public override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
+
+        }
     }
 }

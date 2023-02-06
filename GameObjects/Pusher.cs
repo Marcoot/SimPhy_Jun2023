@@ -3,9 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using SimPhy_Jun2022.GameObjects;
-using SimPhy_Jun2021.GameObjects;
+//using SimPhy_Jun2021.GameObjects;
 
-namespace SimPhy_Jun2021.GameObjects
+namespace SimPhy_Jun2022.GameObjects
 {
     class Pusher : RotatingSpriteGameObject
     {
@@ -42,6 +42,7 @@ namespace SimPhy_Jun2021.GameObjects
         {
             base.HandleInput(inputHelper);
             position = inputHelper.MousePosition;
+            velocity = inputHelper.MousePosition - position;
         }
 
         /// <summary>Returns closest point on this shape</summary>        
